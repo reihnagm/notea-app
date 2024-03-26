@@ -1,0 +1,1 @@
+ /Applications/Development/note-app/.dart_tool/flutter_build/5c3daeb408e0b88979deec6252694e9d/native_assets.yaml: 
