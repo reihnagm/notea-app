@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:checklist_app/page/note/add_checklist.dart';
+import 'package:checklist_app/page/note/add_notedart';
 
 import 'package:checklist_app/provider/note.dart';
 

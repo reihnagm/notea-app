@@ -2,14 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddChecklistPage extends StatefulWidget {
-  const AddChecklistPage({super.key});
+class AddNotePage extends StatefulWidget {
+  const AddNotePage({super.key});
 
   @override
-  State<AddChecklistPage> createState() => AddChecklistPageState();
+  State<AddNotePage> createState() => AddNotePageState();
 }
 
-class AddChecklistPageState extends State<AddChecklistPage> {
+class AddNotePageState extends State<AddNotePage> {
 
   bool isLoading = false;
 
