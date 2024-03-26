@@ -1,4 +1,5 @@
 import 'package:checklist_app/page/auth/register.dart';
+import 'package:checklist_app/page/note/note.dart';
 import 'package:checklist_app/provider/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,9 @@ class LoginPageState extends State<LoginPage> {
       );
       
       if(login) {
-
-        
-
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const NotePage()),
+        );
       } else {
         showDialog(
           context: context,

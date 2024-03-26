@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:checklist_app/page/note/add_notedart';
+import 'package:checklist_app/page/note/add_note.dart';
 
 import 'package:checklist_app/provider/note.dart';
 
@@ -45,6 +45,7 @@ class NotePageState extends State<NotePage> {
                   fontWeight: FontWeight.bold
                 ),
               ),
+              automaticallyImplyLeading: false,
               centerTitle: true,
               actions: [
                 Container(
@@ -58,7 +59,7 @@ class NotePageState extends State<NotePage> {
                       onTap: () async {
                         final data = await Navigator.push(context,
                           MaterialPageRoute(
-                            builder: (context) => const AddChecklistPage()
+                            builder: (context) => const AddNotePage()
                           ),
                         );
                         if(data != null) {

@@ -1,5 +1,8 @@
 import 'package:checklist_app/SQlite/db.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/material.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthNotifier with ChangeNotifier {
 
@@ -8,7 +11,7 @@ class AuthNotifier with ChangeNotifier {
     required String password
   }) async {
 
-    var login = await DB.login(
+    List<Map<String, dynamic>> login = await DB.login(
       username: username,
       password: password
     );
@@ -16,6 +19,14 @@ class AuthNotifier with ChangeNotifier {
     if(login.isEmpty) {
       return false;
     } else {
+      Map<String, dynamic> payload = {
+        "username": username
+      };
+
+      String token = generateToken(payload);
+
+      await saveToken(token);
+
       return true;
     }
   }
@@ -24,14 +35,32 @@ class AuthNotifier with ChangeNotifier {
     required String username, 
     required String password
   }) async {
-    int? register = await DB.register(
-      username: username, 
-      password: password
-    );
+    // int? register = await DB.register(
+    //   username: username, 
+    //   password: password
+    // );
+  }
 
-    debugPrint("==============");
-    debugPrint(register.toString());
-    debugPrint("==============");
+  Future<bool> isLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString("token") != null 
+    ? true 
+    : false;
+  }
+
+  Future<void> saveToken(String token) async {  
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("token", token);
+  }
+
+  String generateToken(Map<String, dynamic> payload) {
+    final jwt = JWT(payload,
+        issuer: 'https://github.com/jonasroussel/dart_jsonwebtoken',
+      );
+      
+    final token = jwt.sign(SecretKey('secret'));
+
+    return token;
   }
 
 }
