@@ -1,3 +1,4 @@
+import 'package:checklist_app/enum/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +16,6 @@ class NotePage extends StatefulWidget {
 class NotePageState extends State<NotePage> {
 
   late NoteNotifier noteNotifier;
-
-  List<dynamic> checkList = [];
 
   Future<void> getData() async {
     if(!mounted) return;
@@ -83,52 +82,64 @@ class NotePageState extends State<NotePage> {
               getData();
             });
           },
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            slivers: [
-          
-              // if(isLoading)
-              //   const SliverFillRemaining(
-              //     hasScrollBody: false,
-              //     child: Center(
-              //       child: CircularProgressIndicator(
-              //         color: Colors.blue,
-              //       ),
-              //     )
-              //   ),
+          child: Consumer<NoteNotifier>(
+            builder: (__, notifier, _) {
+              return CustomScrollView(
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                slivers: [
+              
+                  if(notifier.providerState == ProviderState.loading)
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      )
+                    ),
+                  
+                  if(notifier.providerState == ProviderState.empty) 
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(
+                        child: Text("Anda belum membuat catatan")
+                      )
+                    )
 
-              // SliverPadding(
-              //   padding: const EdgeInsets.all(16.0),
-              //   sliver: SliverList.builder(
-              //     itemCount: checkList.length,
-              //     itemBuilder: (_, int i) {
-              //       return ListTile(
-              //         title: Text(checkList[i]["name"],
-              //           style: const TextStyle(
-              //             color: Colors.black,
-              //             fontWeight: FontWeight.bold,
-              //             fontSize: 18.0
-              //           ),
-              //         ),
-              //         trailing: Padding(
-              //           padding: const EdgeInsets.all(8.0),
-              //           child: InkWell(
-              //             onTap: () async {
+                  // SliverPadding(
+                  //   padding: const EdgeInsets.all(16.0),
+                  //   sliver: SliverList.builder(
+                  //     itemCount: checkList.length,
+                  //     itemBuilder: (_, int i) {
+                  //       return ListTile(
+                  //         title: Text(checkList[i]["name"],
+                  //           style: const TextStyle(
+                  //             color: Colors.black,
+                  //             fontWeight: FontWeight.bold,
+                  //             fontSize: 18.0
+                  //           ),
+                  //         ),
+                  //         trailing: Padding(
+                  //           padding: const EdgeInsets.all(8.0),
+                  //           child: InkWell(
+                  //             onTap: () async {
 
-              //             },
-              //             child: const Icon(
-              //               Icons.delete,
-              //               color: Colors.red,
-              //             )
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // )
-          
-            ],
-          ),
+                  //             },
+                  //             child: const Icon(
+                  //               Icons.delete,
+                  //               color: Colors.red,
+                  //             )
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // )
+              
+                ],
+              );
+            },
+          )
         )
       )
     );

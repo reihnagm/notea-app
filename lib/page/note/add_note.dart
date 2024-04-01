@@ -11,13 +11,9 @@ class AddNotePage extends StatefulWidget {
 
 class AddNotePageState extends State<AddNotePage> {
 
-  bool isLoading = false;
-
   late TextEditingController nameC;
 
   Future<void> createChecklist() async {
-    setState(() => isLoading = true);
-
     try {
       Dio dio = Dio();
       await dio.post("http://94.74.86.174:8080/api/checklist",
@@ -30,8 +26,6 @@ class AddNotePageState extends State<AddNotePage> {
           }
         )
       );
-
-      setState(() => isLoading = false);
 
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.pop(context, 'back');
@@ -60,7 +54,7 @@ class AddNotePageState extends State<AddNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Checklist",
+        title: const Text("Create Note",
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold
@@ -88,20 +82,20 @@ class AddNotePageState extends State<AddNotePage> {
 
                 const SizedBox(height: 20.0),
 
-                ElevatedButton(
-                  onPressed: () async {
-                    await createChecklist();
-                  },
-                  child: isLoading 
-                  ? const SizedBox(
-                      width: 16.0,
-                      height: 16.0,
-                      child: CircularProgressIndicator(
-                        color: Colors.blue,
-                      ),
-                    ) 
-                  : const Text("Create")
-                )
+                // ElevatedButton(
+                //   onPressed: () async {
+                //     await createChecklist();
+                //   },
+                //   child: isLoading 
+                //   ? const SizedBox(
+                //       width: 16.0,
+                //       height: 16.0,
+                //       child: CircularProgressIndicator(
+                //         color: Colors.blue,
+                //       ),
+                //     ) 
+                //   : const Text("Create")
+                // )
           
               ],
             )
