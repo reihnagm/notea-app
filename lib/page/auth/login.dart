@@ -1,6 +1,7 @@
 import 'package:checklist_app/page/auth/register.dart';
 import 'package:checklist_app/page/note/note.dart';
 import 'package:checklist_app/provider/auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
